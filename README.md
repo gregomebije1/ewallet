@@ -178,3 +178,7 @@ Executes digital utility purchases. This service operates via a Two-Phase Commit
   "destination_identifier": "+2348030000001"
 }
 ```
+
+# Useful commands
+./mvnw clean compile
+./mvnw spring-boot:run

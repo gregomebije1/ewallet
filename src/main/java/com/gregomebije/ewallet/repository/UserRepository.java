@@ -1,4 +1,7 @@
-package com.gregomebije.bank.repository;
+package com.gregomebije.ewallet.repository;
 
-public class UserRepository {
+import com.gregomebije.ewallet.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UserRepository extends JpaRepository <User, Long> {
 }

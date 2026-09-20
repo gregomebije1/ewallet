@@ -1,10 +1,14 @@
 package com.gregomebije.ewallet.model;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.*;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import lombok.*;
 
-import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Table(name = "service_providers")
@@ -21,15 +25,24 @@ public class ServiceProvider {
     @Column(nullable = false, unique = true)
     private Long id;
 
-    private String name;
     private String platformName;
+    private String serviceName;
     private int cost;  //store in kobo
     private int revenue;
 
-    @Column(nullable = false, insertable = false, updatable = false, columnDefinition = "TIMESTAMP CURRENT DEFAULT TIMESTAMP")
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(nullable = false, insertable = false, updatable = false, columnDefinition = "TIMESTAMP CURRENT DEFAULT TIMESTAMP")
+    @UpdateTimestamp
+    @Column(nullable = false)
     private LocalDateTime updatedAt;
+
+    public ServiceProvider(String platformName, String serviceName, int cost, int revenue) {
+        this.platformName = platformName;
+        this.serviceName = serviceName;
+        this.cost = cost;
+        this.revenue = revenue;
+    }
 
 }

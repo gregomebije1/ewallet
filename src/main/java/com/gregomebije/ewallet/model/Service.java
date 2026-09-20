@@ -1,10 +1,14 @@
 package com.gregomebije.ewallet.model;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import lombok.*;
 
-import java.time.LocalDateTime;
-import java.util.Date;
+
 
 @Entity
 @Table(name = "services")
@@ -23,14 +27,21 @@ public class Service {
 
     private String name;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "service_provider_id")
     private ServiceProvider serviceProvider;
 
-    @Column(nullable = false, insertable = false, updatable = false, columnDefinition = "TIMESTAMP CURRENT DEFAULT TIMESTAMP")
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(nullable = false, insertable = false, updatable = false, columnDefinition = "TIMESTAMP CURRENT DEFAULT TIMESTAMP")
+    @UpdateTimestamp
+    @Column(nullable = false)
     private LocalDateTime updatedAt;
+
+    public Service(String name, ServiceProvider serviceProvider) {
+        this.name = name;
+        this.serviceProvider = serviceProvider;
+    }
 
 }
