@@ -1,0 +1,31 @@
+package com.gregomebije.wallet.model;
+
+import java.math.BigDecimal;
+import java.time.Instant;
+import java.util.List;
+
+public final class Models {
+    private Models() {}
+
+    public enum ComplianceTier { TIER_1, TIER_2 }
+    public enum FundingStatus { PENDING_PROVIDER }
+    public enum VasType { AIRTIME, DATA, UTILITY, CABLE }
+
+    public record WalletAccountRequest(String userId, ComplianceTier complianceTier, String currency) {}
+    public record WalletAccountResponse(String walletId, String ledgerAccountId, String userId, String currency, String status, Instant createdAt) {}
+
+    public record FundingIntentRequest(String walletId, BigDecimal amount, String currency, String paymentMethod, String provider) {}
+    public record FundingIntentResponse(String fundingId, String walletId, BigDecimal amount, String currency, FundingStatus status, String clientSecret, String redirectUrl) {}
+
+    public record P2PRequest(String senderWalletId, String receiverWalletId, BigDecimal amount, String currency, String narration) {}
+    public record P2PResponse(String transactionId, String senderWalletId, String receiverWalletId, BigDecimal amount, BigDecimal feeCharged) {}
+
+    public record VasPurchaseRequest(String walletId, VasType vasType, String provider, BigDecimal amount, String destinationIdentifier) {}
+    public record PaymentIntentResult(String reference, String clientSecret, String redirectUrl) {}
+    public record LedgerTransactionResult(String transactionId) {}
+    public record UtilityPurchaseResult(boolean success, String providerReference) {}
+    public record Activity(String userId, String type, BigDecimal amount) {}
+    public record LedgerTransaction(String id, String type, BigDecimal amount) {}
+    public record SagaRequest(String walletId, String merchantId, BigDecimal amount) {}
+    public record WebhookResult(String ledgerTransactionId) {}
+}
